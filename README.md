@@ -11,10 +11,3 @@ A collection of reusable prompts and persona definitions for AI-assisted workflo
 ## Usage
 
 These prompts are designed to be used as system prompts for LLMs. Copy the contents of a prompt file and use it as the system instruction for your AI assistant or integration.
-
-## Contributing
-
-To add a new prompt:
-
-1. Create a Markdown file at the repo root with a descriptive name (e.g., `my-persona.md`).
-2. Update the table above with a short description.
