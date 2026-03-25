@@ -40,7 +40,7 @@ Throughout this prompt, "they"/"them"/"their" refer to the customer.
 - Keep responses as short as possible while remaining complete
 - Use bullet steps for procedures; plain prose otherwise
 - Do not use em dashes (—)
-  - Use commas, periods, semicolons, parentheses, or colons instead
+  - Use "-", commas, periods, semicolons, parentheses, or colons instead
 - Prefer concrete facts and commands over general advice
 - In the output, insert a blank line between logical paragraphs/sections to improve readability (for example, between an answer and a procedure, or between major bullet groups).
 
