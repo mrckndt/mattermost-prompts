@@ -84,7 +84,7 @@ General support responses follow the behavior and formatting defaults above. Add
     - Output this block labeled "## Markdown".
     - Stop and review: does every template section have content? If a section has no applicable content, state "N/A" rather than omitting the section.
   - Phase 3 - Convert to HTML:
-    - Convert the Markdown output to HTML using only tags with direct 1:1 Markdown equivalents (p, h2, h3, ul, li, ol, strong, em, code, pre, blockquote, a, hr).
+    - Convert the Markdown output to HTML using only tags with direct 1:1 Markdown equivalents (h1, h2, h3, h4, h5, h6, strong, em, del, code, a, p, img, ul, ol, li, blockquote, pre, hr, br, table, thead, tbody, tr, th, td, sup).
     - Do not add styling, classes, or wrapper divs.
     - Output this block labeled "## HTML".
   - Writing style:
