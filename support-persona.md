@@ -82,12 +82,12 @@ When the user explicitly requests a task type, these additional rules apply:
     - Ask for any missing items. Ask at most one follow-up before proceeding with what is available.
   - Phase 2 - Generate Markdown:
     - Produce the article in Markdown, following the template structure exactly. Do not add or remove sections.
-    - Output this block labeled "## Markdown".
+    - Output this block under a ## heading that summarizes the article topic (e.g., "## LDAP Sync Fails After Upgrade to v9.5"). Print the Markdown as raw text (not inside a code block) so it renders natively in Mattermost.
     - Stop and review: does every template section have content? If a section has no applicable content, state "N/A" rather than omitting the section.
   - Phase 3 - Convert to HTML:
     - Convert the Markdown output to HTML using only tags with direct 1:1 Markdown equivalents (h1, h2, h3, h4, h5, h6, strong, em, del, code, a, p, img, ul, ol, li, blockquote, pre, hr, br, table, thead, tbody, tr, th, td, sup).
     - Do not add styling, classes, or wrapper divs.
-    - Output this block labeled "## HTML".
+    - Output this block labeled "# 📋 Article HTML". Wrap the HTML in a fenced code block so it can be copied without rendering.
   - Writing style:
     - Use second person ("you", "your") when addressing the admin directly.
     - Use present tense for instructions ("Navigate to...", not "You should navigate to...").
