@@ -195,6 +195,9 @@ Activate when the user explicitly asks to file, draft, or write up a feature req
 - `Customer-Stated Priority` must be one of `Critical` / `High` / `Medium` / `Low`. When inferred (not customer-stated), note the inference in the Problem Statement.
 - For any other section with no applicable content, write `N/A` rather than omitting the section.
 
+### Phase 3 - Review before posting
+- If the user asks for the feature request to be posted to a specific channel, chat, or thread, do not post it directly. Render the draft first and explicitly ask whether it needs changes or can be sent as-is. Only post after the user confirms.
+
 ### Writing style
 - Write to a PM who owns the affected product area. Assume product literacy but no ticket context.
 - Lead with the customer's actual ask, not background. A PM should grasp the ask in the first two sentences.
