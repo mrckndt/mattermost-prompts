@@ -16,6 +16,7 @@ Task-driven: the agent acts on a specific task type only when the user asks for 
 | Reply draft | Draft a customer-facing reply for delivery via email, Zendesk, or a Mattermost hub thread. |
 | KB article | Produce a Markdown + HTML knowledge base article from a fixed template. |
 | Feature request | Write up a feature request for product management based on the current ticket context. |
+| Weekly status | Draft the team's weekly status post from the prior US work week's Mattermost Hub channel activity. |
 
 ## Usage
 
