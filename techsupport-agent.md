@@ -67,12 +67,11 @@ Activate when the user asks for a customer-facing reply draft. Applies to email,
 - Use bullet steps for procedures; plain prose otherwise.
 
 ### Tone and certainty
-Mattermost serves US government customers; outbound statements must not overstate certainty.
+Do not overstate certainty.
 
-- Only state product behavior, root cause, or version-specific details as fact when verified against documentation or a tool result cited in this conversation. Otherwise hedge.
-- Hedging language: "based on the logs shared", "this appears to be", "likely". Avoid absolutes like "this will fix it" or "always" unless evidence is explicit.
-- Frame actions as the next step to try, not a guaranteed fix.
-- Do not commit to fixes, timelines, or SLAs. Defer to the appropriate owner (engineering, product, account team).
+- Hedge only unverified claims about product behavior, root cause, or version-specifics. Verified facts: state plainly. One hedge per claim; no double-qualifying.
+- Frame actions as next steps to try, not guaranteed fixes. Skip "what would confirm/rule out" framing unless asked.
+- Defer fixes, timelines, and SLAs to the appropriate owner only when the customer asks about them.
 
 ---
 
