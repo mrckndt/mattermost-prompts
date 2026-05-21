@@ -248,7 +248,7 @@ Activate when the user asks to draft the weekly team status post.
 
 ### Phase 2 - Gather channel activity
 
-Search these Mattermost Hub channels for posts within the window: **🎟️ Zendesk Notifications**, **Technical Support (TS)**, **CS Technical**, **Sales: General Questions**, **CES - Global**.
+Search these Mattermost Hub channels for posts within the window: **🎟️ Zendesk Notifications** (`p77n3165i3r89kugxyabx9wwer`), **Technical Support (TS)** (`ymtg96rbcbdfigcsfnbhrf6ceo`), **CS Technical** (`y5g9utw7sf8g3rsxr1chh1hdsc`), **Sales: General Questions** (`r9e7gymrztnwpxwd7ydsaadgjr`), **CES - Global** (`y7a3fzd8pbgyxdxjfiwxfer5cc`).
 
 Map signals to sections:
 - **What's going well:** resolved incidents, upgrades, migrations, closed escalations.
@@ -257,26 +257,29 @@ Map signals to sections:
 - **Key Statistics:** metrics posted in channel; flag missing values as gaps.
 - **Other PD&E teams should be aware of:** potential bugs, regressions, cross-customer patterns.
 
-Capture related URLs (Hub permalinks, Jira, GitHub, docs/KB) for inline linking. Fold any context supplied with the trigger into the relevant sections.
+Capture related URLs (Hub permalinks, Jira, GitHub, docs/KB) for linking. Fold context from the trigger into relevant sections. For rank 1-2 bullets where channel posts lack detail, query GitHub and Jira for status, PR numbers, or linked tickets.
 
 ### Phase 3 - Draft
 
 Print the draft as raw Markdown (not in a code block). Follow the template exactly.
 
-- Aim for 3-5 bullets per section. Merge related items into one bullet (e.g., multiple KB articles → one line, multiple upgrades → one line).
-- Keep items with signal: strategic-account tickets (named enterprise/gov customers), tickets that surface a product bug/regression or release defect, escalations, cross-customer patterns, team initiatives. Drop routine config questions and standard troubleshooting that reveal nothing broader.
+- Target 3 bullets per section; up to 5 only if the extras are rank 1 or 2 items. Merge related items; drop lowest-ranked first.
+- Rank items (highest first):
+  1. Cross-team initiatives with leadership visibility (health checks, tooling, TAM/CS/PD&E involvement)
+  2. P1/P2 incidents (critical or major business impact), or lower-priority issues affecting multiple customers (e.g. due to a product bug)
+  3. Cross-team handoffs (escalations to Engineering, Integrations, Product) with trackable outcome
+  4. Single-customer break-fix or internal productivity (KB articles) - exclude unless ranks 1-3 together total fewer than 3 items
+- Customer-side configuration errors count as rank 4 regardless of analysis depth or customer name.
 - One sentence per bullet; fit on one screen.
-- If a section has no channel content, write `- [needs input from engineer]` (never omit the section).
-- For Key Statistics: include channel-found values; for missing ones, leave `[please supply]`. Use trend arrows (⬆️ ⬇️ ↔️) only when prior-period values are available; never invent a trend.
+- If a section has no channel content, write `- [needs input from engineer]` (never omit).
+- For Key Statistics: include channel-found values; for missing ones, leave `[please supply]`. Use trend arrows (⬆️ ⬇️ ↔️) only with prior values; never invent a trend.
 - Wrap version numbers, config keys, channel IDs in backticks (e.g. `` `10.11.14` ``). Append resolution timing in parentheses for items resolved during the window (e.g. `(resolved as of Wed morning)`).
-- If you know a relevant URL for a bullet (Hub permalink, Jira, GitHub, docs/KB), you must append it as a short Markdown link: `[hub thread]`, `[MM-12345]`, `[KB]`. Never invent links; unknowns surface in the Phase 4 gap table. No bare URLs.
-- Flag uncertain items with `[review]` inline. Do not post automatically.
+- If you know a relevant URL for a bullet (Hub permalink, Jira, GitHub, docs/KB), append as a short Markdown link: `[hub thread]`, `[MM-12345]`, `[KB]`. Never invent links; unknowns surface in the Phase 4 gap table. No bare URLs.
+- Flag uncertain items with `[review]`. Do not post automatically.
 
 ### Phase 4 - Review and post
 
-1. Present the draft, then a **Missing from template** Markdown table (columns: `Section | Field | Current value`) listing every gap. Always include: all 8 Key Statistics fields (avg/median first-reply and full-resolution, 7-day and 30-day) + their trend arrows, supplied by the engineer; any section that fell back to `[needs input from engineer]`; any bullet missing a link. If nothing is missing, omit the table and say so in one line.
-2. Ask: "Do you want to fill in the missing items, or send as-is?" If the engineer supplies values, update inline and re-present.
-3. Default channel: **CES - Global** (`y7a3fzd8pbgyxdxjfiwxfer5cc`). Ask: "Send to **CES - Global**, or a different channel?" Post only after explicit confirmation.
+1. Present the draft, then a single note listing any gaps (sections still needing input, bullets missing links). Bold the key terms in each gap line. Always note that reply and resolution times (7d + 30d) need to be supplied. End with: "Do you want to fill in the missing items, or send as-is? Default channel is **CES - Global**." Post only after explicit confirmation. If the engineer supplies values, update inline and re-present.
 
 ### Template
 
