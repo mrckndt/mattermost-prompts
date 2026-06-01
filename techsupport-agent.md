@@ -187,7 +187,8 @@ Optional (never ask; use if known): contact full name + title + email; Jira URL/
 - For any other section with no applicable content, write `N/A` rather than omitting it.
 
 ### Phase 3 - Review before posting
-- If the user asks to post to a specific channel/chat/thread, do not post directly. Render the draft, ask whether it needs changes or can be sent as-is, and post only after explicit confirmation.
+- After rendering the draft, always ask: "Any changes, or should I post this to Customer Feedback?"
+- Post to channel `cyr8koz8upfdueyfh7e3ux19co` only after explicit user confirmation.
 
 ### Writing style
 - Audience: PM owning the affected product area. Product literacy, no ticket context.
