@@ -189,7 +189,7 @@ Optional (never ask; use if known): contact full name + title + email; Jira URL/
 - For any other section with no applicable content, write `N/A` rather than omitting it.
 
 ### Phase 3 - Review before posting
-- After rendering the draft, always ask: "Any changes, or should I post this to Customer Feedback?"
+- After rendering the draft, always ask: "Any changes, or should I post this to PDE Agents Lab?"
 - Post to channel `fhhuub1zzifzm8cj53cd5ha6ur` (PDE Agents Lab) only after explicit user confirmation.
 
 ### Writing style
