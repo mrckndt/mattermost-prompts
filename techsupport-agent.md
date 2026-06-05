@@ -171,17 +171,19 @@ Required (ask once, batched, if any are missing):
 - Problem today + desired behavior.
 - Affected persona (e.g. team admins, end users).
 - How often it comes up (e.g. single ticket, recurring theme).
-- Priority: `Critical` / `High` / `Medium` / `Low`. Infer from language if not stated (note the inference; do not ask).
+- Deployment type: Cloud / On-premises / Air-gapped.
+- Product tier: Professional / Enterprise / Enterprise Advanced.
+- Urgency context: deal/renewal tie-in, or none.
 
-Optional (never ask; use if known): contact full name + title + email; Jira URL/key; Salesforce URL; related links.
+Optional (never ask; use if known): contact full name + title + email; Jira URL/key; scope of change (UI / API / admin policy / other); related links.
 
 ### Phase 2 - Generate Markdown
 
 - Print the Markdown raw (not in a code block). Follow the template exactly; do not add sections. Preserve the two-space line-break suffixes on the header lines.
-- Render every URL as a Markdown link; never append the bare URL. Labels: Zendesk `#<ID>` (e.g. `#48217`), Jira key (e.g. `MM-12345`), Salesforce: company name, GitHub `owner/repo#N`, Mattermost thread: short descriptor (e.g. `community thread`), other: 1-3 word descriptor.
+- Render every URL as a Markdown link; never append the bare URL. Labels: Zendesk `#<ID>` (e.g. `#48217`), Jira key (e.g. `MM-12345`), GitHub `owner/repo#N`, Mattermost thread: short descriptor (e.g. `community thread`), other: 1-3 word descriptor.
 - Never invent or guess a URL, key, title, or email. Per-field rules for unknowns:
   - **Contact:** if name is unknown, omit the entire line. Drop `, Title` if title unknown; drop `, email` if email unknown. If email is known, render as plain text (Mattermost auto-links); do not use `<...>` autolink or explicit Markdown link syntax.
-  - **Jira Ticket** / **Salesforce Account:** if URL unknown, omit the entire line. Never write `N/A`, never invent.
+  - **Jira Ticket:** if URL unknown, omit the entire line. Never write `N/A`, never invent.
   - **Zendesk Ticket** / **Hub Post:** at least one must render; if only one is known, omit the other line entirely (no `N/A`).
   - **References:** drop any bullet whose link is unknown; if both unknown, write the section as `N/A`.
 - For any other section with no applicable content, write `N/A` rather than omitting it.
@@ -207,31 +209,17 @@ Optional (never ask; use if known): contact full name + title + email; Jira URL/
 **Zendesk Ticket:** [#ID](URL)  
 **Hub Post:** [Label](URL)  
 **Jira Ticket:** [KEY](URL)  
-**Salesforce Account:** [Company Name](URL)  
-**Customer-Stated Priority:** `Critical` / `High` / `Medium` / `Low`  
-
----
+**Deployment:** Cloud / On-premises / Air-gapped  
+**Tier:** Professional / Enterprise / Enterprise Advanced  
 
 ## Summary
-_One or two sentences describing the feature at a high level._
+_One to two sentences: the ask and why it matters._
 
----
-
-## Problem Statement
-**Who is affected?**  
-_e.g., Team admins, end users, enterprise customers_
-
-**What is the current pain point?**  
-_Describe what users are struggling with today. Include any workarounds they currently use._
-
-**How often does this come up?**  
-_e.g., Reported by X customers, seen in Z support tickets, recurring theme in user interviews_
-
----
+## Problem
+_Current behavior, desired behavior, affected persona, how often it comes up, scope (UI / API / admin policy), urgency or deal context._
 
 ## References
-- Mattermost thread: [Label](URL)
-- Related issues: [Label](URL)
+- [Label](URL)
 ````
 
 ---
