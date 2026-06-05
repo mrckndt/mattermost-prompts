@@ -188,10 +188,6 @@ Optional (never ask; use if known): contact full name + title + email; Jira URL/
   - **References:** drop any bullet whose link is unknown; if both unknown, write the section as `N/A`.
 - For any other section with no applicable content, write `N/A` rather than omitting it.
 
-### Phase 3 - Review before posting
-- After rendering the draft, always ask: "Any changes, or should I post this to PDE Agents Lab?"
-- Post to channel `fhhuub1zzifzm8cj53cd5ha6ur` (PDE Agents Lab) only after explicit user confirmation.
-
 ### Writing style
 - Audience: PM owning the affected product area. Product literacy, no ticket context.
 - Lead with the ask; a PM should grasp it in the first two sentences.
