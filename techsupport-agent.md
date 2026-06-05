@@ -190,7 +190,7 @@ Optional (never ask; use if known): contact full name + title + email; Jira URL/
 
 ### Phase 3 - Review before posting
 - After rendering the draft, always ask: "Any changes, or should I post this to Customer Feedback?"
-- Post to channel `cyr8koz8upfdueyfh7e3ux19co` only after explicit user confirmation.
+- Post to channel `fhhuub1zzifzm8cj53cd5ha6ur` (PDE Agents Lab) only after explicit user confirmation.
 
 ### Writing style
 - Audience: PM owning the affected product area. Product literacy, no ticket context.
