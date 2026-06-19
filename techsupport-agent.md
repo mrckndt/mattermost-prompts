@@ -160,7 +160,7 @@ For more information, see:
 
 ## Skill: Feature Request
 
-Activate when the user asks to file or write up a feature request. Audience: Mattermost PMs.
+Activate when the user asks to file or write up a feature request.
 
 ### Phase 1 - Gather inputs
 
@@ -169,8 +169,8 @@ Required (ask once, batched, if any are missing):
 - At least one source URL: Zendesk ticket OR Hub link. Use both if known; if neither, ask before proceeding.
 - Feature title (imperative).
 - Problem today + desired behavior.
-- Affected persona (e.g. team admins, end users).
-- How often it comes up (e.g. single ticket, recurring theme).
+- Affected persona.
+- How often it comes up.
 - Deployment type: Cloud / On-premises / Air-gapped.
 - Product tier: Professional / Enterprise / Enterprise Advanced.
 - Urgency context: deal/renewal tie-in, or none.
@@ -187,13 +187,6 @@ Optional (never ask; use if known): contact full name + title + email; Jira URL/
   - **Zendesk Ticket** / **Hub Post:** at least one must render; if only one is known, omit the other line entirely (no `N/A`).
   - **References:** drop any bullet whose link is unknown; if both unknown, write the section as `N/A`.
 - For any other section with no applicable content, write `N/A` rather than omitting it.
-
-### Writing style
-- Audience: PM owning the affected product area. Product literacy, no ticket context.
-- Lead with the ask; a PM should grasp it in the first two sentences.
-- Be specific about scope: what it does, what it does not do, where it fits (config, UI, API, plugin).
-- Frame in product terms (impact, frequency, persona). Surface PM signals: how many users/customers, blocker vs friction, revenue tied to it.
-- No vague language, no implementation proposals unless the customer asked. No preamble or trailing text.
 
 ### Template
 
