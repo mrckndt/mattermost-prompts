@@ -162,9 +162,10 @@ For more information, see:
 
 Activate when the user asks to file or write up a feature request.
 
-### Phase 1 - Gather inputs
+### Inputs
 
 Required (ask once, batched, if any are missing):
+- Issue type: Feature Request / Bug Report / Security Issue / Other.
 - Customer / organization name.
 - At least one source URL: Zendesk ticket OR Hub link. Use both if known; if neither, ask before proceeding.
 - Feature title (imperative).
@@ -173,42 +174,37 @@ Required (ask once, batched, if any are missing):
 - How often it comes up.
 - Deployment type: Cloud / On-premises / Air-gapped.
 - Product tier: Professional / Enterprise / Enterprise Advanced.
-- Urgency context: deal/renewal tie-in, or none.
+- Urgency / Severity: deal/renewal tie-in, bug severity, or none.
 
 Optional (never ask; use if known): contact full name + title + email; Jira URL/key; scope of change (UI / API / admin policy / other); related links.
 
-### Phase 2 - Generate Markdown
+### Output
 
-- Print the Markdown raw (not in a code block). Follow the template exactly; do not add sections. Preserve the two-space line-break suffixes on the header lines.
-- Render every URL as a Markdown link; never append the bare URL. Labels: Zendesk `#<ID>` (e.g. `#48217`), Jira key (e.g. `MM-12345`), GitHub `owner/repo#N`, Mattermost thread: short descriptor (e.g. `community thread`), other: 1-3 word descriptor.
-- Never invent or guess a URL, key, title, or email. Per-field rules for unknowns:
-  - **Contact:** if name is unknown, omit the entire line. Drop `, Title` if title unknown; drop `, email` if email unknown. If email is known, render as plain text (Mattermost auto-links); do not use `<...>` autolink or explicit Markdown link syntax.
-  - **Jira Ticket:** if URL unknown, omit the entire line. Never write `N/A`, never invent.
-  - **Zendesk Ticket** / **Hub Post:** at least one must render; if only one is known, omit the other line entirely (no `N/A`).
-  - **References:** drop any bullet whose link is unknown; if both unknown, write the section as `N/A`.
-- For any other section with no applicable content, write `N/A` rather than omitting it.
+Print raw Markdown, not in a code block. Follow the template exactly.
+- Render every URL as a Markdown link; never append the bare URL. Labels: Zendesk `#<ID>` (e.g. `#48217`), Jira key (e.g. `MM-12345`), other: 1-3 word descriptor.
+- Never invent or guess a URL, key, or email. Per-field rules for unknowns:
+  - **Contact:** omit the line if name unknown. Drop `, Title` or `, email` if unknown. Render email as plain text.
+  - **Jira Ticket:** omit the line if URL unknown.
+  - **Zendesk Ticket** / **Hub Post:** at least one must render; omit the other if unknown.
+  - All other fields: write `N/A` if not applicable.
 
 ### Template
 
 ````
-# Feature Request: [Customer] - [Short, Descriptive Title]
+# [Issue Type]: [Customer] - [Short, Descriptive Title]
 
 **Customer:** [Company Name]
-**Contact:** [First Surname][, Title if known][, email if known]
+**Contact:** [First Surname][, Title][, email]
 **Zendesk Ticket:** [#ID](URL)
 **Hub Post:** [Label](URL)
 **Jira Ticket:** [KEY](URL)
 **Deployment:** Cloud / On-premises / Air-gapped
 **Tier:** Professional / Enterprise / Enterprise Advanced
-
-## Summary
-_One to two sentences: the ask and why it matters._
-
-## Problem
-_Current behavior, desired behavior, affected persona, how often it comes up, scope (UI / API / admin policy), urgency or deal context._
-
-## References
-- [Label](URL)
+**Persona:** [affected role]
+**Frequency:** [how often it comes up]
+**Problem:** [current behavior → desired behavior]
+**Scope:** [UI / API / admin policy / other]
+**Urgency / Severity:** [deal/renewal tie-in, bug severity, or none]
 ````
 
 ---
