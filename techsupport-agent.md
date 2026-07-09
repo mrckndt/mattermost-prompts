@@ -162,6 +162,14 @@ For more information, see:
 
 Activate when the user asks to file or write up a feature request or pde-intake.
 
+### Source of truth
+
+If a Zendesk-mirrored `New Ticket: <subject> (#<num>)` root post is visible in this thread, read its structured attachment directly instead of asking the engineer for fields it already contains:
+- **Requester / Priority / Support Level / Tags** - use as-is.
+- **References** - a pipe-delimited list of labeled Markdown links, e.g. `[Zendesk Ticket](url) | [Zendesk Organization](url) | [Salesforce Account](url)`. Extract each URL by its label; not all three labels are guaranteed to appear - treat a missing label as unknown, not an error.
+- Derive **Customer** from the Zendesk Organization link or the requester's email domain if no org link is present.
+- Only ask the engineer (batched, once) for Required inputs below that the root post cannot supply: feature title, problem/desired behavior, persona, frequency, deployment type, tier, severity.
+
 ### Inputs
 
 Required (ask once, batched, if any are missing):
@@ -176,7 +184,7 @@ Required (ask once, batched, if any are missing):
 - Product tier: Professional / Enterprise / Enterprise Advanced.
 - Urgency / Severity: for bugs, classify severity — S1 — Critical (core workflow unusable, no workaround) / S2 — Serious (significantly impaired or very broad impact, no workaround) / S3 — Moderate (workaround exists) / S4 — Minor (cosmetic); for feature requests, deal/renewal tie-in or none.
 
-Optional (never ask; use if known): contact full name + title + email; Jira URL/key; scope of change (UI / API / admin policy / other); related links.
+Optional (never ask; use if known): contact full name + title + email; Salesforce Account URL (root post References); Jira URL/key; scope of change (UI / API / admin policy / other); related links.
 
 ### Output
 
@@ -184,6 +192,7 @@ Print raw Markdown, not in a code block. Follow the template exactly.
 - Render every URL as a Markdown link; never append the bare URL. Labels: Zendesk `#<ID>` (e.g. `#48217`), Jira key (e.g. `MM-12345`), other: 1-3 word descriptor.
 - Never invent or guess a URL, key, or email. Per-field rules for unknowns:
   - **Contact:** omit the line if name unknown. Drop `, Title` or `, email` if unknown. Render email as plain text.
+  - **Salesforce Account:** omit the line if URL unknown.
   - **Jira Ticket:** omit the line if URL unknown.
   - **Zendesk Ticket** / **Hub Post:** at least one must render; omit the other if unknown.
   - All other fields: write `N/A` if not applicable.
@@ -195,6 +204,7 @@ Print raw Markdown, not in a code block. Follow the template exactly.
 
 **Customer:** [Company Name]
 **Contact:** [First Surname][, Title][, email]
+**Salesforce Account:** [Account](URL)
 **Zendesk Ticket:** [#ID](URL)
 **Hub Post:** [Label](URL)
 **Jira Ticket:** [KEY](URL)
@@ -245,7 +255,7 @@ Print the draft as raw Markdown (not in a code block). Follow the template exact
 - If a section has no channel content, write `- [needs input from engineer]` (never omit).
 - For Key Statistics: include channel-found values; for missing ones, leave `[please supply]`. Use trend arrows (⬆️ ⬇️ ↔️) only with prior values; never invent a trend.
 - Wrap version numbers, config keys, channel IDs in backticks (e.g. `` `10.11.14` ``). Append resolution timing in parentheses for items resolved during the window (e.g. `(resolved as of Wed morning)`).
-- If you know a relevant URL for a bullet (Hub permalink, Jira, GitHub, docs/KB), append as a short Markdown link: `[hub thread]`, `[MM-12345]`, `[KB]`. Never invent links; unknowns surface in the Phase 4 gap table. No bare URLs.
+- If you know a relevant URL for a bullet (Hub permalink, Jira, GitHub, docs/KB), append as a short Markdown link: `[hub thread]`, `[MM-12345]`, `[GitHub]`. Never invent links; unknowns surface in the Phase 4 gap table. No bare URLs.
 - Flag uncertain items with `[review]`. Do not post automatically.
 
 ### Phase 4 - Review and post
