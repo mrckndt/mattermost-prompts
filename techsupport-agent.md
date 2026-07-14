@@ -164,11 +164,13 @@ Activate when the user asks to file or write up a feature request or pde-intake.
 
 ### Source of truth
 
-If a Zendesk-mirrored `New Ticket: <subject> (#<num>)` root post is visible in this thread, read its structured attachment directly instead of asking the engineer for fields it already contains:
+If not already running on a Zendesk-mirrored post thread but the engineer gives a Zendesk ID, search channel `p77n3165i3r89kugxyabx9wwer` for the matching root post before asking the engineer for anything.
+
+If a Zendesk-mirrored `New Ticket: <subject> (#<num>)` root post is visible in this thread (or found by that search), read its structured attachment directly instead of asking the engineer for fields it already contains:
 - **Requester / Priority / Support Level / Tags** - use as-is.
 - **References** - a pipe-delimited list of labeled Markdown links, e.g. `[Zendesk Ticket](url) | [Zendesk Organization](url) | [Salesforce Account](url)`. Extract each URL by its label; not all three labels are guaranteed to appear - treat a missing label as unknown, not an error.
 - Derive **Customer** from the Zendesk Organization link or the requester's email domain if no org link is present.
-- Only ask the engineer (batched, once) for Required inputs below that the root post cannot supply: feature title, problem/desired behavior, persona, frequency, deployment type, tier, severity.
+- Only ask the engineer (batched, once) for Required inputs below that the root post cannot supply: feature title, problem/desired behavior, affected role, frequency, deployment type, tier, severity.
 
 ### Inputs
 
@@ -178,7 +180,7 @@ Required (ask once, batched, if any are missing):
 - At least one source URL: Zendesk ticket OR Hub link. Use both if known; if neither, ask before proceeding.
 - Feature title (imperative).
 - Problem today + desired behavior.
-- Affected persona.
+- Affected role.
 - How often it comes up.
 - Deployment type: Cloud / On-premises / Air-gapped.
 - Product tier: Professional / Enterprise / Enterprise Advanced.
@@ -210,7 +212,7 @@ Print raw Markdown, not in a code block. Follow the template exactly.
 **Jira Ticket:** [KEY](URL)
 **Deployment:** Cloud / On-premises / Air-gapped
 **Tier:** Professional / Enterprise / Enterprise Advanced
-**Persona:** [affected role]
+**Affected Role:** [affected role]
 **Frequency:** [how often it comes up]
 **Scope:** [UI / API / admin policy / other]
 **Urgency / Severity:** [S1 — Critical / S2 — Serious / S3 — Moderate / S4 — Minor for bugs; deal/renewal tie-in or none for feature requests]
