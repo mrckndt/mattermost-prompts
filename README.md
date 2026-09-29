@@ -15,7 +15,7 @@ Task-driven: the agent acts on a specific task type only when the user asks for 
 | General support | Troubleshooting, config questions, log analysis. Default behavior when no other task is requested. |
 | Reply draft | Draft a customer-facing reply for delivery via email, Zendesk, or a Mattermost hub thread. |
 | KB article | Produce a Markdown + HTML knowledge base article from a flexible template. |
-| Feature request | Write up a feature request for product management based on the current ticket context. |
+| Product request | Write up a feature request, bug report, or security issue for PD&E based on the current ticket context (`pde-intake` is a deprecated alias). Optionally DMs it to PDE Intake Agent after confirmation. |
 
 ## Usage
 
