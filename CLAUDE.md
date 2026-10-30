@@ -3,7 +3,7 @@
 ## Constraints
 
 ### techsupport-agent.md
-Maximum 16,383 runes (Unicode code points). Check after every edit:
+Maximum 100,000 runes (Unicode code points). Check after every edit:
 ```
 python3 -c "print(len(open('techsupport-agent.md').read()))"
 ```
