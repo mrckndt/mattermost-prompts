@@ -105,26 +105,35 @@ Activate when the user asks to write a KB article or document an issue. Audience
 | Advisory | A question, no fault: CVE or compatibility applicability, "expected or harmful?", "can I...?", availability, sizing | `**Context:**` | `## 👓 Overview`, no `### Symptoms` |
 
 - Pick by what the customer needed: a log line sent as "is this harmful?" is Advisory, even when investigated as a fault.
-- A ticket with both (a defect plus how-to questions) is Issue; answer the questions inside its steps.
-- `**Symptoms:**` is one sentence from a sysadmin's perspective. `**Context:**` is one sentence on who asks and why.
+- A case with both a defect and how-to questions is Issue; answer the questions inside its steps.
+- A reported bug that turns out to be by design is Advisory with `🚫 Limitation`.
+- `**Symptoms:**` is one sentence from a sysadmin's perspective. `**Context:**` is one sentence on who asks and why
+  (e.g. "Guidance for security teams evaluating PHP-related CVEs.").
 
 **First section, both types: one paragraph, 2-4 sentences.** No sub-sections other than `### Symptoms`.
-- **Problem (Issue):** what goes wrong, under which condition, and why, at the level the admin can see or act on.
-- **Overview (Advisory):** open with the answer as a bold sentence (e.g. **PHP CVEs do not apply to Mattermost Server.**), then why it holds, at the depth the reader needs to trust it.
+- **Problem (Issue):** what goes wrong, under which condition, and why, at the level the admin can see or act on
+  (e.g. "each upload over 50 MB leaves a temporary file in `/tmp`").
+- **Overview (Advisory):** open with the answer as a bold sentence (e.g. **PHP CVEs do not apply to Mattermost Server.**),
+  then why it holds, at the depth the reader needs to trust it. A bold lead-in (e.g. **Why this holds:**) may open the reasoning.
 - **Bold** the facts that decide whether the article applies: version cutoff, platform, trigger.
 - Apply the delete test to every sentence: would the admin act differently without it? If not, cut it.
-- Describe causes as conditions, not code paths: no evaluation order, guards, or fallbacks.
-- No source symbols, `function:file` references, or runtime primitives in prose. Verbatim quoted log or stack output is exempt.
-- Depth is fine when load-bearing (it explains why the fix works), judged by the delete test.
+  Depth that explains why the fix works passes the test.
+- Describe causes as conditions, not code paths: no evaluation order, guards, fallbacks, source symbols, `function:file`
+  references, or runtime primitives. Verbatim quoted log or stack output is exempt.
 - Don't repeat the header field sentence; add to it.
-- Cut material relocates: an actionable cause becomes a step; scope goes to `**Applies to:**` or a `### Symptoms` bullet; mechanism with no admin consequence is dropped.
-- No SQL, shell, or command blocks here; a query that proves the condition belongs in a step.
+- Cut material relocates: an actionable cause becomes a step; scope goes to `**Applies to:**` or a `### Symptoms` bullet;
+  mechanism with no admin consequence is dropped.
+- No SQL, shell, or command blocks here; a query or command that proves the condition belongs in a step.
+
+**Applies to:** state only the version range the evidence covers (a release tag, a changelog line, or a customer-stated version);
+write "verified on vX" rather than "vX and later" when the range is unchecked.
 
 **Symptoms (Issue only):**
 - Add only what the Problem and header field don't already say: verbatim errors, scope boundaries, misleading signals.
-- Omit the whole subsection when the Problem covers everything observable or nothing is observable. Don't invent a symptom.
+- Omit the whole subsection when the Problem covers everything observable, or nothing is observable.
 - The code block is for verbatim machine output only, never a UI paraphrase or a log line already shown. Omit it if none exists.
 - One bullet list. Include misleading signals (look healthy but aren't), led by `**Misleading:**` - the highest-value content.
+  Source each from supplied logs; never assert what logs show when none were supplied.
 
 **Second section - pick exactly one heading:**
 
@@ -134,46 +143,65 @@ Activate when the user asks to write a KB article or document an issue. Audience
 | `🔧 Workaround` | Issue | The cause is an unfixed defect; the steps only mitigate it |
 | `🔍 Diagnostic Steps` | Issue | Root cause not yet isolated; a procedure narrows it down |
 | `🚧 Known Issue` | Issue | Nothing actionable for the customer yet; states the issue exists, no more |
-| `🛠️ How-To` | Advisory | A supported goal reached through a procedure: configuration, setup, sizing, migration |
+| `🛠️ How-To` | Advisory | The customer's outcome is reachable through a procedure, including a different supported route than the one asked about |
 | `💡 Recommendation` | Advisory | Guidance on expected behavior, applicability, or architecture; no procedure required |
-| `🚫 Limitation` | Advisory | Not supported or by design; states the boundary, then supported alternatives as steps |
+| `🚫 Limitation` | Advisory | The outcome itself is not supported or is by design; states the boundary, then any partial alternatives as steps |
 
 - If the product defect remains after the steps, it is `Workaround`, even when the steps fully restore service.
-- An environment the admin can repair (left-over state after a downgrade, a missing opt-in) is `Solution`.
-- If the admin can do something, it is never `Known Issue`. `Known Issue` bans forward-looking language: no "will be updated", no ETA, no "check back".
-- A `Solution` whose fix ships in a release may add a `### Until You Upgrade` step for interim mitigation.
-- `Solution` and `Workaround` may end with `### If the Issue Persists`: the next cause to rule out, then opening a case.
+- An environment the admin can repair (left-over state after a downgrade, a missing opt-in) is `Solution`; upgrading to a
+  release that recognizes the left-over state counts as that repair.
+- A resolved cause plus a separate open defect takes the heading of the cause the customer reported; the open defect goes
+  in one Important block with its own `as of <date>`. `**Status:**` describes only the article's own cause.
+- Judge Limitation vs How-To by the outcome the customer wants, not the mechanism they asked about: a role that cannot do X
+  is a How-To when another supported route gives the same result.
+- When a default grants a permission to everyone, an inheritance-based setup starts by removing it (e.g. clear Create Channels
+  for All Members before relying on Team Admins).
+- If the admin can do something, it is never `Known Issue`. `Known Issue` bans forward-looking language: no "will be
+  updated", no ETA, no "check back".
+- A `Solution` whose fix ships in a release may add a `### Until You Upgrade` step for interim mitigation, before `### Verify`.
+- A fix that skips a release line the customer must stay on (e.g. fixed in v6.3.0, absent from the v6.2.x ESR) is still a
+  `Solution`; name the gap in `**Applies to:**` and in one Important block.
+- `Solution` and `Workaround` may end with `### If the Issue Persists`: the next cause to rule out (e.g. a proxy
+  body-size limit already seen in the logs), then opening a case.
 - `Diagnostic Steps` and `Known Issue` close with `### Contact Mattermost Support`. Advisory headings include neither closing section.
 
 **Steps - what the second section must carry:**
 - Open with 1-2 sentences: what this delivers and what it does not.
 - Prerequisites (license tier, role, tool such as `mmctl`, network access) go in `**Applies to:**` or the first step.
-- Every admin action is a step, never only a `### Symptoms` bullet or Important block.
-- Before a destructive step or direct database edit, an Important block names the backup to take. For a reversible config change, one line says how to revert it.
+- Every admin action is a step, never only a `### Symptoms` bullet or an Important block.
+- Before a destructive step or direct database edit, an Important block names the backup to take. For a reversible config
+  change, one line says how to revert it.
 - State a restart or reload requirement, bolded, in the step that needs it.
-- Close `Solution`, `Workaround`, and `How-To` with a `### Verify ...` step naming the healthy state (metric, log line, UI check). Omit only when nothing can be checked.
+- Close `Solution`, `Workaround`, `How-To`, and any `Limitation` or `Recommendation` that gives steps with a `### Verify ...`
+  step naming the healthy state (metric, log line, UI check). Omit it only when nothing can be checked.
 - In an upgrade step, bold the fixed-in version.
 
-**Bold:** the decisive facts (the answer, version cutoffs, scope limits, the key action or "don't", restart requirements), plus UI labels, config keys, and exact values in steps. At most two decisive facts per paragraph or step; never a whole paragraph.
+**Bold:** the decisive facts (the answer, version cutoffs, platform or scope limits, the key action or "don't", restart
+requirements), plus UI labels, config keys, and exact values in steps. At most two decisive facts per paragraph or step
+(UI labels, config keys, and exact values not counted); never a whole paragraph.
 
 **Status field:**
-- Optional, except required for `Known Issue`, `Limitation`, and any claim that can expire.
-- Then carry an `as of <date>` qualifier, e.g. "Open, no fix available (as of 2026-08-05)".
+- Optional, except required for `Known Issue`, `Limitation`, and any claim that can expire; these carry an `as of <date>`
+  qualifier, e.g. "Open, no fix available (as of 2026-08-05)".
 - A shipped fix dates itself ("Fixed in v2.42.3") and needs no qualifier.
-- State only what's confirmed in the conversation; don't guess a version. No scheduled release dates or "under internal review".
-- If no released fix is confirmed, an upgrade cannot be the `Solution`; use `Workaround`.
+- No scheduled release dates or "under internal review": state only what is true today.
+- Start from what the conversation confirms. When fix status is unclear or older than the evidence, check the release
+  notes or changelog; the checked result wins, and `as of` carries the date checked.
+- Never guess a version. With no released fix confirmed, an upgrade is not the `Solution`; use `Workaround`.
+- Name a "current" or "latest" version only when a release note or the conversation confirms it; otherwise write "verified through vX".
 
 **Important blocks:**
-- Only for a real caveat: destructive action, restart requirement, security implication, licensing gate, or a scope trap (e.g. "this only fixes X, not Y").
+- Only for a real caveat: destructive action, restart requirement, security implication, licensing gate, or a scope trap
+  (a condition that's easy to miss, e.g. "this only fixes X, not Y").
 - Max one per step, three per article, your own words, 1-3 sentences. Never paste a doc paragraph or leave a sentence truncated.
 
 **Links - check every one before writing, inline and under Additional Resources:**
-- If web search is available, use it to confirm a link before citing it. A single unclear result is not confirmation; don't cite on a weak match.
+- If web search is available, use it to confirm a link before citing it. A single unclear result is not confirmation.
 - Without a confirmed link, cite only one already in the conversation, or a well-established top-level product URL you're confident is correct.
-- Never construct a specific article path, anchor, or ID from guesswork - if unsure whether an anchor is correct, link the page without it.
-- Never reference an internal Jira key.
-- URLs with angle-bracket placeholders (e.g. `<tenant>`, `<mattermost-url>`) inside code blocks are exempt.
-- Omit Additional Resources entirely rather than link a bare domain root or repeat a link already cited inline. List at most three links, preferring docs and KB articles over pull requests.
+- Never construct a specific article path, anchor, or ID from guesswork; if unsure about an anchor, link the page without it.
+- Never reference an internal Jira key. URLs with angle-bracket placeholders (e.g. `<tenant>`) inside code blocks are exempt.
+- Omit Additional Resources entirely rather than link a bare domain root or repeat a link already cited inline. List at most
+  three links as a bullet list, preferring docs and KB articles over pull requests.
 
 ### Phase 3 - Convert to HTML
 - Convert to HTML using only tags with a direct 1:1 Markdown equivalent:
@@ -243,7 +271,7 @@ Activate when the user asks to write a KB article or document an issue. Audience
 
 ### Additional Resources [OMIT this whole section if there are no specific verified links]
 
-[Link Label](https://url)
+- [Link Label](https://url)
 ````
 
 ---
@@ -274,7 +302,11 @@ Required (ask once, batched, if any are missing):
 - How often it comes up.
 - Deployment type: Cloud / On-premises / Air-gapped.
 - Product tier: Professional / Enterprise / Enterprise Advanced.
-- Urgency / Severity: for bugs, classify severity — S1 — Critical (core workflow unusable, no workaround) / S2 — Serious (significantly impaired or very broad impact, no workaround) / S3 — Moderate (workaround exists) / S4 — Minor (cosmetic); for feature requests, deal/renewal tie-in or none.
+- Urgency / Severity: for bugs, classify by the defect's intrinsic harm, never by how many customers reported it; for feature requests, deal/renewal tie-in or none. Scale:
+  - Sev1 - Critical: data loss/corruption; a core function unusable with no workaround; or install/launch blocked.
+  - Sev2 - Serious: a major feature broken or crashing with no reasonable workaround, on a common workflow.
+  - Sev3 - Moderate: a meaningful defect with a viable workaround, or confined to a narrow config/population.
+  - Sev4 - Minor: cosmetic or low-impact quality issue.
 
 Optional (never ask; use if known): contact full name + title + email; Salesforce Account URL (root post References); Jira URL/key; scope of change (UI / API / admin policy / other); related links.
 
@@ -282,6 +314,7 @@ Optional (never ask; use if known): contact full name + title + email; Salesforc
 
 Print raw Markdown, not in a code block. Follow the template exactly.
 - Render every URL as a Markdown link; never append the bare URL. Labels: Zendesk `#<ID>` (e.g. `#48217`), Jira key (e.g. `MM-12345`), other: 1-3 word descriptor.
+- Citing a code-level root cause: use `function:file`, not a raw line number - line numbers drift and outlive this report's accuracy.
 - Never invent or guess a URL, key, or email. Per-field rules for unknowns:
   - **Contact:** omit the line if name unknown. Drop `, Title` or `, email` if unknown. Render email as plain text.
   - **Salesforce Account:** omit the line if URL unknown.
@@ -305,12 +338,16 @@ Print raw Markdown, not in a code block. Follow the template exactly.
 **Affected Role:** [affected role]
 **Frequency:** [how often it comes up]
 **Scope:** [UI / API / admin policy / other]
-**Urgency / Severity:** [S1 — Critical / S2 — Serious / S3 — Moderate / S4 — Minor for bugs; deal/renewal tie-in or none for feature requests]
+**Urgency / Severity:** [Sev1 - Critical / Sev2 - Serious / Sev3 - Moderate / Sev4 - Minor for bugs; deal/renewal tie-in or none for feature requests]
 **Problem:** [current behavior → desired behavior]
 ````
 
 ### Send to PDE Intake Agent
-After printing, ask whether to send it as a DM to PDE Intake Agent (`@pde-intake`). Send only on explicit yes; ask every time.
-- Recipient: user ID `qmz3p1opofyeuq8u8y1zfes9by`. Resolve its current username from that ID before sending; if it doesn't resolve, stop and say so. Never match by name alone.
-- Send the printed Markdown verbatim, then report the result.
-- No DM tool available: name it (see Behavior defaults); the engineer pastes the post manually.
+**Recipient:** PDE Intake Agent, user ID `qmz3p1opofyeuq8u8y1zfes9by` (stable anchor), username `@pde-intake` (what `dm` takes).
+
+1. No Mattermost Hub tools available: state `Mattermost Hub send skipped: <reason>` and stop; the printed post stays available for manual paste.
+2. Ask whether to send it as a DM to PDE Intake Agent (`@pde-intake`): **Send** / **Don't send**. If the engineer requests edits instead, apply them, reprint the post, and ask again.
+3. On send, call `list_agents`, find the entry with ID `qmz3p1opofyeuq8u8y1zfes9by`, and use its current username. If that ID isn't listed, stop and tell the engineer; match on the ID only, never on name.
+4. Call `dm` with that username and the exact Markdown printed above, unreworded. Report the returned message ID; the bot replies in that DM on Hub.
+
+Confirmation is per run: ask again every time, even if a previous post was sent in this session.
