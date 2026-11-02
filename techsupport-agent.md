@@ -209,13 +209,15 @@ requirements), plus UI labels, config keys, and exact values in steps. At most t
   - `blockquote`, `pre`, `hr`, `br`, `table`, `thead`, `tbody`, `tr`, `th`, `td`, `sup`
 - No styling, classes, or wrapper divs.
 - Output this block labeled `# 📋 Article HTML`. Wrap the HTML in a fenced code block so it can be copied without rendering.
+- After the closing fence, end the response with a blank line, then the line `Sources:`. Web-search citation markers are
+  appended to the end of the message; glued to the closing fence, they break the code block.
 
 ### Writing style
 - Second person, present tense for instructions ("Navigate to...", not "You should navigate to...").
 - Full navigation path for settings (e.g., **System Console > Environment > Web Server**).
 - No vague language ("may", "might", "sometimes"); state conditions explicitly.
 - Keep the `**Symptoms:**` or `**Context:**` header field to one sentence; detail goes in the first section.
-- No preamble before or after the article.
+- No preamble before the article; nothing after the HTML block except the `Sources:` line (Phase 3).
 
 ### Template
 
