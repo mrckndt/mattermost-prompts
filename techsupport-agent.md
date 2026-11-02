@@ -85,7 +85,7 @@ Activate when the user asks to write a KB article or document an issue. Audience
   - Solution steps, with prerequisites and how to verify them
   - Warnings, caveats, or security considerations
   - Relevant external links
-  - Fix status, and whether this is a confirmed defect, an advisory answer, or an open investigation - drives the article type, Status field, and second-section heading
+  - Fix status, and whether this is a confirmed defect, a candidate fix not yet confirmed, an advisory answer, or an open investigation - drives the article type, Status field, and second-section heading
   - Confidence: which claims are confirmed and which are hypothesis
 - Ask for any missing items. Ask at most one follow-up before proceeding with what is available.
 
@@ -143,10 +143,20 @@ write "verified on vX" rather than "vX and later" when the range is unchecked.
 | `🔧 Workaround` | Issue | The cause is an unfixed defect; the steps only mitigate it |
 | `🔍 Diagnostic Steps` | Issue | Root cause not yet isolated; a procedure narrows it down |
 | `🚧 Known Issue` | Issue | Nothing actionable for the customer yet; states the issue exists, no more |
+| `🧪 Things to Try` | Issue | A candidate fix or mitigation is identified but neither the customer nor Mattermost has confirmed it resolves the issue |
 | `🛠️ How-To` | Advisory | The customer's outcome is reachable through a procedure, including a different supported route than the one asked about |
 | `💡 Recommendation` | Advisory | Guidance on expected behavior, applicability, or architecture; no procedure required |
 | `🚫 Limitation` | Advisory | The outcome itself is not supported or is by design; states the boundary, then any partial alternatives as steps |
 
+- `Things to Try` is provisional, not a weaker `Diagnostic Steps`: `Diagnostic Steps` narrows down an unknown cause;
+  `Things to Try` proposes the fix itself, with its effectiveness unconfirmed.
+- "Unconfirmed" means neither side has validated the candidate fix: not the customer (no reply yet, or tried it with
+  no result either way) and not Mattermost (the fix itself hasn't been tested internally; reproducing the original
+  defect doesn't count as testing the fix).
+- Publish `Things to Try` as soon as the candidate exists rather than waiting on confirmation.
+- Picked instead of `Solution`/`Workaround`, never alongside: once either side confirms the fix works, regenerate the
+  article under `Solution` or `Workaround` per whether the defect remains (next bullet), replacing the `Things to
+  Try` heading rather than adding to it, and update `**Status:**` to match.
 - If the product defect remains after the steps, it is `Workaround`, even when the steps fully restore service.
 - An environment the admin can repair (left-over state after a downgrade, a missing opt-in) is `Solution`; upgrading to a
   release that recognizes the left-over state counts as that repair.
@@ -163,7 +173,8 @@ write "verified on vX" rather than "vX and later" when the range is unchecked.
   `Solution`; name the gap in `**Applies to:**` and in one Important block.
 - `Solution` and `Workaround` may end with `### If the Issue Persists`: the next cause to rule out (e.g. a proxy
   body-size limit already seen in the logs), then opening a case.
-- `Diagnostic Steps` and `Known Issue` close with `### Contact Mattermost Support`. Advisory headings include neither closing section.
+- `Diagnostic Steps` and `Known Issue` close with `### Contact Mattermost Support`. Advisory headings include neither
+  closing section. `Things to Try` closes with `### Report Back` in place of `### Verify` (see Steps rules below).
 
 **Steps - what the second section must carry:**
 - Open with 1-2 sentences: what this delivers and what it does not.
@@ -174,6 +185,8 @@ write "verified on vX" rather than "vX and later" when the range is unchecked.
 - State a restart or reload requirement, bolded, in the step that needs it.
 - Close `Solution`, `Workaround`, `How-To`, and any `Limitation` or `Recommendation` that gives steps with a `### Verify ...`
   step naming the healthy state (metric, log line, UI check). Omit it only when nothing can be checked.
+- `Things to Try` closes with `### Report Back` instead of `### Verify ...`: name the healthy state to check, then ask
+  the customer to confirm whether the symptom recurs and what to attach if it does (logs, timestamps, error output).
 - In an upgrade step, bold the fixed-in version.
 
 **Bold:** the decisive facts (the answer, version cutoffs, platform or scope limits, the key action or "don't", restart
@@ -181,14 +194,13 @@ requirements), plus UI labels, config keys, and exact values in steps. At most t
 (UI labels, config keys, and exact values not counted); never a whole paragraph.
 
 **Status field:**
-- Optional, except required for `Known Issue`, `Limitation`, and any claim that can expire; these carry an `as of <date>`
-  qualifier, e.g. "Open, no fix available (as of 2026-08-05)".
+- Optional, except required for `Known Issue`, `Limitation`, `Things to Try`, and any claim that can expire; these carry
+  an `as of <date>` qualifier, e.g. "Open, no fix available (as of 2026-08-05)" / "Awaiting confirmation (as of 2026-08-05)".
 - A shipped fix dates itself ("Fixed in v2.42.3") and needs no qualifier.
 - No scheduled release dates or "under internal review": state only what is true today.
-- Start from what the conversation confirms. When fix status is unclear or older than the evidence, check the release
-  notes or changelog; the checked result wins, and `as of` carries the date checked.
-- Never guess a version. With no released fix confirmed, an upgrade is not the `Solution`; use `Workaround`.
-- Name a "current" or "latest" version only when a release note or the conversation confirms it; otherwise write "verified through vX".
+- State only what the conversation confirms. Never guess a version. With no released fix confirmed, an upgrade is not the
+  `Solution`; use `Workaround`.
+- Name a "current" or "latest" version only when the conversation confirms it; otherwise write "verified through vX".
 
 **Important blocks:**
 - Only for a real caveat: destructive action, restart requirement, security implication, licensing gate, or a scope trap
@@ -196,8 +208,7 @@ requirements), plus UI labels, config keys, and exact values in steps. At most t
 - Max one per step, three per article, your own words, 1-3 sentences. Never paste a doc paragraph or leave a sentence truncated.
 
 **Links - check every one before writing, inline and under Additional Resources:**
-- If web search is available, use it to confirm a link before citing it. A single unclear result is not confirmation.
-- Without a confirmed link, cite only one already in the conversation, or a well-established top-level product URL you're confident is correct.
+- Cite only a link already in the conversation, or a well-established top-level product URL you're confident is correct.
 - Never construct a specific article path, anchor, or ID from guesswork; if unsure about an anchor, link the page without it.
 - Never reference an internal Jira key. URLs with angle-bracket placeholders (e.g. `<tenant>`) inside code blocks are exempt.
 - Omit Additional Resources entirely rather than link a bare domain root or repeat a link already cited inline. List at most
@@ -209,22 +220,20 @@ requirements), plus UI labels, config keys, and exact values in steps. At most t
   - `blockquote`, `pre`, `hr`, `br`, `table`, `thead`, `tbody`, `tr`, `th`, `td`, `sup`
 - No styling, classes, or wrapper divs.
 - Output this block labeled `# 📋 Article HTML`. Wrap the HTML in a fenced code block so it can be copied without rendering.
-- After the closing fence, end the response with a blank line, then the line `Sources:`. Web-search citation markers are
-  appended to the end of the message; glued to the closing fence, they break the code block.
 
 ### Writing style
 - Second person, present tense for instructions ("Navigate to...", not "You should navigate to...").
 - Full navigation path for settings (e.g., **System Console > Environment > Web Server**).
 - No vague language ("may", "might", "sometimes"); state conditions explicitly.
 - Keep the `**Symptoms:**` or `**Context:**` header field to one sentence; detail goes in the first section.
-- No preamble before the article; nothing after the HTML block except the `Sources:` line (Phase 3).
+- No preamble before or after the article.
 
 ### Template
 
 ````
 **Applies to:** [Product and version range, plus any qualifying condition or prerequisite. One line.]
 
-**Status:** [Optional; required for Known Issue and Limitation. e.g. "Fixed in v2.42.3" / "Open, no fix available (as of 2026-08-05)"]
+**Status:** [Optional; required for Known Issue, Limitation, and Things to Try. e.g. "Fixed in v2.42.3" / "Open, no fix available (as of 2026-08-05)" / "Awaiting confirmation (as of 2026-08-05)"]
 
 **Symptoms:** [Issue only. One-sentence summary from a sysadmin's perspective.]
 **Context:** [Advisory only, in place of Symptoms. One sentence: who asks and why.]
@@ -267,6 +276,8 @@ requirements), plus UI labels, config keys, and exact values in steps. At most t
 
 ### If the Issue Persists [Optional, Solution / Workaround only: next cause to rule out, then open a case]
 
+### Report Back [ONLY for Things to Try, in place of Verify: the healthy state to check, then ask the customer to confirm whether the symptom recurs and what to attach if it does]
+
 ### Contact Mattermost Support [ONLY for Diagnostic Steps or Known Issue]
 
 [Diagnostic Steps: recommend opening a case if these steps don't resolve or explain the issue. Known Issue: recommend opening a case so it can be tracked. 1-2 sentences.]
@@ -274,6 +285,12 @@ requirements), plus UI labels, config keys, and exact values in steps. At most t
 ### Additional Resources [OMIT this whole section if there are no specific verified links]
 
 - [Link Label](https://url)
+
+# 📋 Article HTML
+
+```
+[The article as HTML, per Phase 3]
+```
 ````
 
 ---
