@@ -328,7 +328,7 @@ Field sources, when present:
 ### Output
 
 Print raw Markdown, not in a code block. Follow the template exactly.
-- Render the common fields, then only the details section matching the request type. Bugs also get the `Instructions for PDE Intake Agent` section.
+- Render the common fields, then only the details section matching the request type, then `Instructions for PDE Intake Agent` (rules under Template).
 - Render every URL as a Markdown link. Labels: Zendesk `#<ID>` (e.g. `#48217`), Jira key (e.g. `MM-12345`), other: 1-3 word descriptor. Exception: the Zendesk URL in `Instructions for PDE Intake Agent` stays bare (a Jira field value).
 - **Evidence:** list the Zendesk, Hub, Jira and Salesforce links first, then related tickets, docs, customer quotes.
 - **Contact:** name, title, email (plain text) as known; under `Customer technical contact` for bugs, appended to `Affected customer(s)` otherwise.
@@ -397,11 +397,14 @@ Print raw Markdown, not in a code block. Follow the template exactly.
 
 #### Instructions for PDE Intake Agent
 
-For every Jira ticket created from this request: add the label `customer-bug` and set the Zendesk URL field to
+For every Jira ticket created from this request: add the label `[customer-bug | customer-request]` and set the Zendesk URL field to
 [bare Zendesk URL].
 ````
 
-In `Instructions for PDE Intake Agent`, drop the `and set the Zendesk URL field to ...` clause when no Zendesk URL is known.
+Rules for `Instructions for PDE Intake Agent` (rendered for every request type):
+- **Label:** `customer-bug` for Bug; `customer-request` for Feature and Design; no label clause for Security.
+- **Zendesk URL:** drop the `and set the Zendesk URL field to ...` clause when no Zendesk URL is known.
+- **Both clauses dropped:** omit the section.
 
 ### Send to PDE Intake Agent
 **Recipient:** PDE Intake Agent, user ID `qmz3p1opofyeuq8u8y1zfes9by` (stable anchor), username `@pde-intake` (what `dm` takes).
